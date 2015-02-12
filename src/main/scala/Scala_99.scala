@@ -6,6 +6,109 @@ class Scala_99 {
 
 }
 
+object Scala99Problems{
+  def last(xs: List[Int]): Int = xs match {
+    case Nil => throw new IllegalArgumentException("No elements")
+    case head :: Nil => head
+    case head :: xs => last(xs)
+  }
+
+  def penultimate(xs: List[Int]): Int = xs match {
+    case x :: y :: Nil => x
+    case x :: y :: rest => penultimate(y :: rest)
+    case _ => throw new IllegalArgumentException("No Penultimate")
+  }
+
+  def kthElement(k: Int, xs: List[Int]): Int = k match {
+    case x if x < 0             => throw new IndexOutOfBoundsException("No negative index allowed")
+    case x if xs.length < x + 1 => throw new IndexOutOfBoundsException("Index out of bounds")
+    case 0                      => xs.head
+    case _ => kthElement(k-1,xs.tail)
+  }
+
+  def length(xs: List[Int]): Int = xs match {
+    case Nil => 0
+    case _ => 1 + length(xs.tail)
+  }
+
+  def reverse(xs: List[Int]): List[Int] = xs match {
+    case Nil => Nil
+    case x :: Nil => List(x)
+    case x :: y => reverse(y) ++ List(x)
+  }
+
+  def isPalindrome[T](xs: List[T]): Boolean ={
+    xs match {
+      case Nil => true
+      case head :: Nil => true
+      case _ => (xs.head == xs.last) && isPalindrome(xs.tail.reverse.tail.reverse)
+    }
+  }
+
+
+  def isPalindromeAlternative[T](xs: List[T]): Boolean = {
+    xs == xs.reverse
+  }
+
+  def flatten(list: List[Any]): List[Any] = {
+    def flatten1(remaining: List[Any], output: List[Any]): List[Any] =
+      remaining match {
+        case Nil => output
+        case (x: List[_]) :: y => flatten1(y, output ::: flatten(x))
+        case x :: y => flatten1(y, output :+ x)
+      }
+    flatten1(list, Nil)
+  }
+
+  def compress(list: List[Any]): List[Any] = {
+    list match {
+      case Nil => Nil
+      case x :: Nil => list
+      case x :: y :: z => if (x == y) compress(y :: z) else List(x) ::: compress(y :: z)
+    }
+  }
+
+  def pack[T](ls: List[T]): List[List[T]] = {
+    if (ls.isEmpty) List(List())
+    else {
+      val (same, rest) = ls  span { _ == ls.head }// returns two lists - it spans the list ls till the condition is matched and returns the rest.
+      if (rest == Nil) List(same)
+      else same :: pack(rest)
+    }
+  }
+
+  def encoding[T](list: List[T]): List[(Int, T)] = {
+    pack(list) map { x => (x.length, x.head)}
+  }
+
+  def decode[T](ls: List[(Int, T)]) : List[T] = {
+    ls flatMap { e => List.fill(e._1)(e._2)}
+  }
+
+  def encodeDirect[T](ls: List[T]): List[(Int, T)] = {
+    if(ls.isEmpty){
+      Nil
+    }
+    else{
+      val (same, rest) = ls  span { _ == ls.head }
+      (same.length, ls.head) :: encodeDirect(rest)
+    }
+  }
+
+  def duplicate[T](ls: List[T]): List[T] = {
+    if(ls.isEmpty) Nil
+    else
+      ls.head ::  ls.head :: duplicate(ls.tail)
+  }
+
+  def duplicateN(n: Int, ls: List[Any]): List[Any] = {
+    ls match {
+      case Nil => Nil
+      case x :: rest => List.fill(n)(x) ++ duplicateN(n, rest)
+    }
+  }
+}
+
 object P01{
   def last(xs: List[Int]): Int = xs match {
     case Nil => throw new IllegalArgumentException("No elements")
@@ -162,12 +265,12 @@ object P11{
 }
 
 object P12{
-  def encode[T](ls: List[(Int, T)]) : List[T] = {
+  def decode[T](ls: List[(Int, T)]) : List[T] = {
     ls flatMap { e => List.fill(e._1)(e._2)}
   }
-  encode(List())
-  encode(List((1,2),(3,4)))
-  encode(List((2,3),(4,4),(4,1)))
+  decode(List())
+  decode(List((1,2),(3,4)))
+  decode(List((2,3),(4,4),(4,1)))
 }
 
 object P13{
