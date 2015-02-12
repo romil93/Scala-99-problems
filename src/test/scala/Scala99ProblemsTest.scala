@@ -66,18 +66,20 @@ class Scala99ProblemsTest extends FlatSpec {
 
 
   "Scala99Problems" should "find whether the given List is a Palindrome or not" in {
+    val right = true
+    val wrong =false
     //Test for Problem 6 - find whether the List is a Palindrome or not
-    Scala99Problems.isPalindrome(List(1,2,3,2,1)) should be(true)
-    Scala99Problems.isPalindrome(List(1,1,2,2)) should be(false)
-    Scala99Problems.isPalindrome(List()) should be(true)
-    Scala99Problems.isPalindrome(Nil) should be(true)
-    Scala99Problems.isPalindrome(List(1)) should be(true)
+    Scala99Problems.isPalindrome(List(1,2,3,2,1)) should be(right)
+    Scala99Problems.isPalindrome(List(1,1,2,2)) should be(wrong)
+    Scala99Problems.isPalindrome(List()) should be(right)
+    Scala99Problems.isPalindrome(Nil) should be(right)
+    Scala99Problems.isPalindrome(List(1)) should be(right)
 
-    Scala99Problems.isPalindromeAlternative(List(1,2,3,2,1)) should be(true)
-    Scala99Problems.isPalindromeAlternative(List(1,1,2,2)) should be(false)
-    Scala99Problems.isPalindromeAlternative(List()) should be(true)
-    Scala99Problems.isPalindromeAlternative(Nil) should be(true)
-    Scala99Problems.isPalindromeAlternative(List(1)) should be(true)
+    Scala99Problems.isPalindromeAlternative(List(1,2,3,2,1)) should be(right)
+    Scala99Problems.isPalindromeAlternative(List(1,1,2,2)) should be(wrong)
+    Scala99Problems.isPalindromeAlternative(List()) should be(right)
+    Scala99Problems.isPalindromeAlternative(Nil) should be(right)
+    Scala99Problems.isPalindromeAlternative(List(1)) should be(right)
   }
 
 
