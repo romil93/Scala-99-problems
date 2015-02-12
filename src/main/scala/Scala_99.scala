@@ -1,13 +1,14 @@
 /**
  * Created by indix on 11/2/15.
  */
+
 class Scala_99 {
 
 }
 
 object P01{
   def last(xs: List[Int]): Int = xs match {
-    case Nil => throw new Exception("No elements")
+    case Nil => throw new IllegalArgumentException("No elements")
     case head :: Nil => head
     case head :: xs => last(xs)
   }
@@ -143,7 +144,7 @@ object P10{
   encoding(l)
 }
 
-object P10{
+object P11{
   def pack[T](ls: List[T]): List[List[T]] = {
     if (ls.isEmpty) List(List())
     else {
