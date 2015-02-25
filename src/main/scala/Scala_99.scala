@@ -1,7 +1,3 @@
-/**
- * Created by indix on 11/2/15.
- */
-
 class Scala_99 {
 
 }
@@ -105,6 +101,54 @@ object Scala99Problems{
     ls match {
       case Nil => Nil
       case x :: rest => List.fill(n)(x) ++ duplicateN(n, rest)
+    }
+  }
+
+  def split(n: Int, ls: List[Any], l1: List[Any] = List(), l2: List[Any] = List()): (List[Any], List[Any]) = {
+
+    def recursiveSplit() = {
+      n match {
+        case 0 => split(0, Nil, l1, l2 ++ ls)
+        case num if num > 0 => split(num - 1, ls.tail, l1 ++ List(ls.head), l2)
+      }
+    }
+
+    ls match {
+      case Nil => (l1, l2)
+      case _ => recursiveSplit()
+    }
+  }
+
+  def slice(ls: List[Any], i: Int, k: Int): List[Any] = {
+
+    def listLength(ls: List[Any]): Int = {
+      ls.length
+    }
+
+    def isListEmpty(ls: List[Any]): Boolean = {
+      ls.isEmpty
+    }
+
+    def sliceActual(ls: List[Any], k: Int, ans: List[Any] = Nil): List[Any] = {
+      if (isListEmpty(ls)) throw new IllegalArgumentException("The list is too small for the slice")
+
+      k match {
+        case 0 => ans
+        case num => sliceActual(ls.tail, k-1, ans ++ List(ls.head))
+      }
+    }
+
+    if (isListEmpty(ls)){
+      throw new IllegalArgumentException("Empty List cannot be sliced")
+    }
+
+    else if (listLength(ls) < i || i > k) throw new IllegalArgumentException("Invalid i and k arguments")
+
+    else{
+      i match {
+        case 1 => sliceActual(ls, k)
+        case num => slice(ls.tail, i - 1, k - 1)
+      }
     }
   }
 }
@@ -304,4 +348,56 @@ object P15{
     }
   }
   duplicateN(4, List(1,2,3))
+}
+
+object P17{
+  def split(n: Int, ls: List[Any], l1: List[Any] = List(), l2: List[Any] = List()): (List[Any], List[Any]) = {
+
+    def recursiveSplit() = {
+      n match {
+        case 0 => split(0, Nil, l1, l2 ++ ls)
+        case num if num > 0 => split(num - 1, ls.tail, l1 ++ List(ls.head), l2)
+      }
+    }
+
+    ls match {
+      case Nil => (l1, l2)
+      case _ => recursiveSplit()
+    }
+  }
+}
+
+object P18{
+  def slice(ls: List[Any], i: Int, k: Int): List[Any] = {
+
+    def listLength(ls: List[Any]): Int = {
+      ls.length
+    }
+
+    def isListEmpty(ls: List[Any]): Boolean = {
+      ls.isEmpty
+    }
+
+    def sliceActual(ls: List[Any], k: Int, ans: List[Any] = Nil): List[Any] = {
+      if (isListEmpty(ls)) throw new IllegalArgumentException("The list is too small for the slice")
+
+      k match {
+        case 0 => ans
+        case num => sliceActual(ls.tail, k-1, ans ++ List(ls.head))
+      }
+    }
+
+    if (isListEmpty(ls)){
+      throw new IllegalArgumentException("Empty List cannot be sliced")
+    }
+
+    else if (listLength(ls) < i || i > k) throw new IllegalArgumentException("Invalid i and k arguments")
+
+    else{
+      i match {
+        case 1 => sliceActual(ls, k)
+        case num => slice(ls.tail, i - 1, k - 1)
+      }
+    }
+  }
 }

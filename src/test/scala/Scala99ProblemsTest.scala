@@ -99,4 +99,41 @@ class Scala99ProblemsTest extends FlatSpec {
     Scala99Problems.compress(List()) should be(List())
     Scala99Problems.compress(List(1,1,1,2,2,1,2,3,4,4,4)) should be(List(1,2,1,2,3,4))
   }
+
+
+  "Scala99Problems" should "split any list given to it based on the number asked of the split" in {
+    //Test for problem 17 - split the list give a point.
+    val (l1, l2) = Scala99Problems.split(2, List(1, 2, 3, 4, 5))
+    l1 should be(List(1, 2))
+    l2 should be(List(3, 4, 5))
+
+
+    val (l3, l4) = Scala99Problems.split(5, List(1, 2))
+    l3 should be(List(1, 2))
+    l4 should be(List())
+  }
+
+
+  "Scala99Problems" should "slice any list given an i and k" in {
+    //Test for problem 18 - slice the list
+    Scala99Problems.slice(List(1,2,3,4,5,6,7,8), 3,7) should be(List(3,4,5,6,7))
+
+    val exception1 = intercept[IllegalArgumentException] {
+      Scala99Problems.slice(List(1, 2, 3), 4, 5)
+    }
+
+    exception1.getMessage should be("Invalid i and k arguments")
+
+    val exception2 = intercept[IllegalArgumentException] {
+      Scala99Problems.slice(List(), 1, 2)
+    }
+
+    exception2.getMessage should be("Empty List cannot be sliced")
+
+    val exception3 = intercept[IllegalArgumentException] {
+      Scala99Problems.slice(List(1, 2, 3, 4, 5), 4, 6)
+    }
+
+    exception3.getMessage should be("The list is too small for the slice")
+  }
 }
